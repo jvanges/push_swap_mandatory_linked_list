@@ -50,8 +50,8 @@ static void	extract_ranks(t_push_swap *push_swap)
 		max_position = find_rank_pos(&push_swap->b, target);
 		prev_position = find_rank_pos(&push_swap->b, target - 1);
 		use_previous = (prev_position >= 0
-			&& rotation_cost(prev_position, push_swap->b.size)
-			< rotation_cost(max_position, push_swap->b.size));
+				&& rotation_cost(prev_position, push_swap->b.size)
+				< rotation_cost(max_position, push_swap->b.size));
 		if (use_previous)
 		{
 			bring_to_top(push_swap, &push_swap->b, prev_position, OP_RB);

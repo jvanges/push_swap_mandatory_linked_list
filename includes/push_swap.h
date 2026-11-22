@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define FLAG_BENCH 5
+
 typedef enum e_op
 {
 	OP_SA,

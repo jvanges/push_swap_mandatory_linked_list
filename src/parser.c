@@ -14,7 +14,6 @@
 #include "push_swap.h"
 
 /* Les drapeaux peuvent être mélangés aux valeurs, mais jamais répétés. */
-# define FLAG_BENCH 5
 
 /* Zéro désigne une valeur ; les autres codes identifient un drapeau. */
 static int	get_flag_code(const char *str)
