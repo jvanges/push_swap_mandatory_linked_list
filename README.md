@@ -250,7 +250,5 @@ et non une garantie pour toute permutation possible.
 
 ### Utilisation de l'IA
 
-L'intelligence artificielle a été utilisée pour adapter les algorithmes à des
-listes doublement chaînées, écrire du code conforme à la Norme 42, préparer des
-tests de validation et rédiger ce README. Le binôme doit relire, tester et
-comprendre chaque partie avant le rendu et la soutenance.
+L'intelligence artificielle a été utilisée pour écrire du code conforme à la
+Norme 42, ainsi que pour rédiger et mettre à jour ce README.
