@@ -1,0 +1,113 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvan-ges <jvan-ges@student.42belgium.be>   +#+  +:+       +#+        */
+/*   By: anaubare <anaubare@student.42belgium.be>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/22 15:45:00 by jvan-ges          #+#    #+#             */
+/*   Updated: 2026/11/22 15:45:00 by jvan-ges         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+
+# include <limits.h>
+# include <stdlib.h>
+# include <unistd.h>
+
+typedef enum e_op
+{
+	OP_SA,
+	OP_SB,
+	OP_SS,
+	OP_PA,
+	OP_PB,
+	OP_RA,
+	OP_RB,
+	OP_RR,
+	OP_RRA,
+	OP_RRB,
+	OP_RRR,
+	OP_COUNT
+}	t_operation;
+
+typedef enum e_strategy
+{
+	SIMPLE,
+	MEDIUM,
+	COMPLEX,
+	ADAPTIVE
+}	t_strategy;
+
+typedef struct s_node
+{
+	int				value;
+	int				rank;
+	struct s_node	*prev;
+	struct s_node	*next;
+}	t_node;
+
+typedef struct s_stack
+{
+	t_node	*top;
+	t_node	*bottom;
+	int		size;
+}	t_stack;
+
+typedef struct s_ps
+{
+	t_stack	a;
+	t_stack	b;
+	long	counts[OP_COUNT];
+	long	total;
+}	t_push_swap;
+
+typedef struct s_config
+{
+	t_strategy	strategy;
+	int			bench;
+	int			strategy_seen;
+}	t_config;
+
+int			parse_arguments(int argc, char **argv, t_push_swap *push_swap,
+				t_config *config);
+int			parse_string(const char *str, t_push_swap *push_swap);
+int			ft_streq(const char *left, const char *right);
+int			stack_append(t_stack *stack, int value);
+void		stack_clear(t_stack *stack);
+
+double		compute_disorder(const t_stack *stack);
+void		normalize_stack(t_stack *stack);
+int			is_sorted(const t_stack *stack);
+
+void		stack_swap(t_stack *stack);
+void		stack_push(t_stack *destination, t_stack *source);
+void		stack_rotate(t_stack *stack);
+void		stack_reverse(t_stack *stack);
+void		exec_op(t_push_swap *push_swap, t_operation op);
+const char	*op_name(t_operation op);
+
+int			integer_sqrt(int value);
+int			find_rank_pos(const t_stack *stack, int target_rank);
+int			find_max_pos(const t_stack *stack);
+void		bring_to_top(t_push_swap *push_swap, t_stack *stack,
+				int target_position, t_operation forward);
+
+void		sort_simple(t_push_swap *push_swap);
+void		sort_medium(t_push_swap *push_swap);
+void		sort_complex(t_push_swap *push_swap);
+void		sort_small(t_push_swap *push_swap);
+void		execute_strategy(t_push_swap *push_swap, const t_config *config,
+				double disorder_ratio);
+
+void		print_bench(const t_push_swap *push_swap, double disorder_ratio,
+				t_strategy selected_strategy, int is_adaptive);
+void		ft_putchar_fd(char c, int fd);
+void		ft_putstr_fd(const char *str, int fd);
+void		ft_putlong_fd(long value, int fd);
+void		print_error(void);
+
+#endif
