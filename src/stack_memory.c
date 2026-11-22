@@ -13,6 +13,8 @@
 
 #include "push_swap.h"
 
+/* L'insertion vérifie les doublons avant d'allouer un nouveau nœud. */
+
 int	stack_append(t_stack *stack, int value)
 {
 	t_node	*current;
@@ -29,7 +31,6 @@ int	stack_append(t_stack *stack, int value)
 	if (!new_node)
 		return (0);
 	new_node->value = value;
-	new_node->rank = 0;
 	new_node->prev = stack->bottom;
 	new_node->next = NULL;
 	if (stack->bottom)

@@ -13,6 +13,9 @@
 
 #include "push_swap.h"
 
+/* Les métriques vont sur stderr, les opérations sur stdout. */
+
+/* L'arrondi entier affiche deux décimales sans bibliothèque de formatage. */
 static void	print_disorder(double disorder_ratio)
 {
 	long	scaled_percent;

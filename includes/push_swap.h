@@ -42,6 +42,7 @@ typedef enum e_strategy
 	ADAPTIVE
 }	t_strategy;
 
+/* Un nœud appartient toujours à a ou à b ; il n'est jamais dupliqué. */
 typedef struct s_node
 {
 	int				value;
@@ -50,6 +51,7 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
+/* top est le sommet ; bottom rend les rotations inverses immédiates. */
 typedef struct s_stack
 {
 	t_node	*top;
@@ -90,9 +92,9 @@ void		stack_reverse(t_stack *stack);
 void		exec_op(t_push_swap *push_swap, t_operation op);
 const char	*op_name(t_operation op);
 
-int			integer_sqrt(int value);
+int			chunk_size_for(int size);
+int			rotation_cost(int position, int size);
 int			find_rank_pos(const t_stack *stack, int target_rank);
-int			find_max_pos(const t_stack *stack);
 void		bring_to_top(t_push_swap *push_swap, t_stack *stack,
 				int target_position, t_operation forward);
 

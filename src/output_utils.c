@@ -13,6 +13,8 @@
 
 #include "push_swap.h"
 
+/* Les affichages utilisent uniquement write, sans printf externe. */
+
 void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
@@ -28,6 +30,7 @@ void	ft_putstr_fd(const char *str, int fd)
 	write(fd, str, len);
 }
 
+/* La récursion écrit les chiffres de gauche à droite. */
 void	ft_putlong_fd(long value, int fd)
 {
 	char	digit;

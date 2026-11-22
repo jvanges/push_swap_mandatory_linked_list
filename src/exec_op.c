@@ -13,6 +13,8 @@
 
 #include "push_swap.h"
 
+/* exec_op centralise l'exécution, le comptage et l'affichage. */
+
 const char	*op_name(t_operation op)
 {
 	if (op == OP_SA)
@@ -38,6 +40,7 @@ const char	*op_name(t_operation op)
 	return ("rrr");
 }
 
+/* Les opérations doubles ss, rr et rrr appliquent leurs deux primitives. */
 static void	apply_operation(t_push_swap *push_swap, t_operation op)
 {
 	if (op == OP_SA || op == OP_SS)

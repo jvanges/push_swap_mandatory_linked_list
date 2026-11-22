@@ -13,6 +13,7 @@
 
 #include "push_swap.h"
 
+/* Le désordre choisit la stratégie selon les seuils 0.2 et 0.5. */
 static t_strategy	adaptive_strategy(double disorder_ratio)
 {
 	if (disorder_ratio < 0.2)
@@ -22,6 +23,7 @@ static t_strategy	adaptive_strategy(double disorder_ratio)
 	return (COMPLEX);
 }
 
+/* Jusqu'à 512 éléments, Medium et Complex partagent le chemin borné. */
 void	execute_strategy(t_push_swap *push_swap, const t_config *config,
 		double disorder_ratio)
 {
@@ -32,7 +34,9 @@ void	execute_strategy(t_push_swap *push_swap, const t_config *config,
 		selected_strategy = adaptive_strategy(disorder_ratio);
 	if (!is_sorted(&push_swap->a))
 	{
-		if (selected_strategy == SIMPLE)
+		if (selected_strategy != SIMPLE && push_swap->a.size <= 512)
+			sort_small(push_swap);
+		else if (selected_strategy == SIMPLE)
 			sort_simple(push_swap);
 		else if (selected_strategy == MEDIUM)
 			sort_medium(push_swap);

@@ -13,6 +13,8 @@
 
 #include "push_swap.h"
 
+/* Le sommet est top : les primitives ne font aucune allocation. */
+
 void	stack_swap(t_stack *stack)
 {
 	int	tmp;
@@ -24,6 +26,7 @@ void	stack_swap(t_stack *stack)
 	stack->top->next->value = tmp;
 }
 
+/* Le nœud du sommet change de pile sans être copié ni réalloué. */
 void	stack_push(t_stack *destination, t_stack *source)
 {
 	t_node	*node;

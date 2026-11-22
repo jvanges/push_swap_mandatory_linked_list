@@ -7,24 +7,15 @@
 /*   By: anaubare <anaubare@student.42belgium.be>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/22 15:45:00 by jvan-ges          #+#    #+#             */
-/*   Updated: 2026/11/22 15:45:00 by jvan-ges         ###   ########.fr       */
+/*   Updated: 2026/11/22 16:50:00 by jvan-ges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	bit_count(int size)
-{
-	int	bits;
-	int	max_rank;
+/* Le radix LSD traite un bit à la fois en conservant l'ordre stable. */
 
-	bits = 0;
-	max_rank = size - 1;
-	while ((max_rank >> bits) > 0)
-		bits++;
-	return (bits);
-}
-
+/* Les bits zéro vont dans b ; les bits un restent dans a avec ra. */
 static void	radix_pass(t_push_swap *push_swap, int current_bit)
 {
 	int	i;
@@ -47,16 +38,9 @@ static void	radix_pass(t_push_swap *push_swap, int current_bit)
 void	sort_complex(t_push_swap *push_swap)
 {
 	int	current_bit;
-	int	total_bits;
 
-	if (push_swap->a.size <= 512)
-	{
-		sort_small(push_swap);
-		return ;
-	}
-	total_bits = bit_count(push_swap->a.size);
 	current_bit = 0;
-	while (current_bit < total_bits)
+	while (((push_swap->a.size - 1) >> current_bit) > 0)
 	{
 		radix_pass(push_swap, current_bit);
 		current_bit++;

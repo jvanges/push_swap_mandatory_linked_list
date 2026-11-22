@@ -13,6 +13,10 @@
 
 #include "push_swap.h"
 
+/* Les drapeaux peuvent être mélangés aux valeurs, mais jamais répétés. */
+# define FLAG_BENCH 5
+
+/* Zéro désigne une valeur ; les autres codes identifient un drapeau. */
 static int	get_flag_code(const char *str)
 {
 	if (ft_streq(str, "--simple"))
@@ -24,13 +28,13 @@ static int	get_flag_code(const char *str)
 	if (ft_streq(str, "--adaptive"))
 		return (ADAPTIVE + 1);
 	if (ft_streq(str, "--bench"))
-		return (5);
+		return (FLAG_BENCH);
 	return (0);
 }
 
 static int	apply_flag(t_config *config, int flag_code)
 {
-	if (flag_code == 5)
+	if (flag_code == FLAG_BENCH)
 	{
 		if (config->bench)
 			return (0);

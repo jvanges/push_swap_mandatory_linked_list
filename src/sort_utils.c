@@ -7,13 +7,15 @@
 /*   By: anaubare <anaubare@student.42belgium.be>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/22 15:45:00 by jvan-ges          #+#    #+#             */
-/*   Updated: 2026/11/22 15:45:00 by jvan-ges         ###   ########.fr       */
+/*   Updated: 2026/11/22 16:50:00 by jvan-ges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	integer_sqrt(int value)
+/* Seules les rotations génèrent des opérations, pas les recherches C. */
+
+static int	integer_sqrt(int value)
 {
 	int	root;
 
@@ -21,6 +23,18 @@ int	integer_sqrt(int value)
 	while (root + 1 <= value / (root + 1))
 		root++;
 	return (root);
+}
+
+int	chunk_size_for(int size)
+{
+	return (integer_sqrt(size) * 5 / 2);
+}
+
+int	rotation_cost(int position, int size)
+{
+	if (position <= size / 2)
+		return (position);
+	return (size - position);
 }
 
 int	find_rank_pos(const t_stack *stack, int target_rank)
@@ -40,47 +54,19 @@ int	find_rank_pos(const t_stack *stack, int target_rank)
 	return (-1);
 }
 
-int	find_max_pos(const t_stack *stack)
-{
-	t_node	*current;
-	int		position;
-	int		max_position;
-	int		max_value;
-
-	current = stack->top;
-	position = 0;
-	max_position = 0;
-	max_value = current->value;
-	while (current)
-	{
-		if (current->value > max_value)
-		{
-			max_value = current->value;
-			max_position = position;
-		}
-		current = current->next;
-		position++;
-	}
-	return (max_position);
-}
-
+/* Le coût et le sens de rotation partagent la même règle d'arrondi. */
 void	bring_to_top(t_push_swap *push_swap, t_stack *stack,
 		int target_position, t_operation forward)
 {
 	t_operation	reverse;
+	int			rotations;
 
 	reverse = OP_RRA;
 	if (forward == OP_RB)
 		reverse = OP_RRB;
-	if (target_position <= stack->size / 2)
-	{
-		while (target_position-- > 0)
-			exec_op(push_swap, forward);
-	}
-	else
-	{
-		target_position = stack->size - target_position;
-		while (target_position-- > 0)
-			exec_op(push_swap, reverse);
-	}
+	rotations = rotation_cost(target_position, stack->size);
+	if (target_position > stack->size / 2)
+		forward = reverse;
+	while (rotations-- > 0)
+		exec_op(push_swap, forward);
 }

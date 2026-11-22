@@ -13,6 +13,8 @@
 
 #include "push_swap.h"
 
+/* Le désordre est le ratio entre inversions et paires de valeurs. */
+
 double	compute_disorder(const t_stack *stack)
 {
 	t_node	*left;
@@ -55,6 +57,7 @@ static int	compute_rank(const t_stack *stack, int value)
 	return (rank);
 }
 
+/* Tous les rangs sont calculés avant de remplacer les valeurs originales. */
 void	normalize_stack(t_stack *stack)
 {
 	t_node	*current;

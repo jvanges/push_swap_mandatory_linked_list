@@ -13,6 +13,8 @@
 
 #include "push_swap.h"
 
+/* Un argument peut contenir plusieurs entiers séparés par des blancs. */
+
 static int	ft_isspace(char c)
 {
 	return (c == ' ' || (c >= '\t' && c <= '\r'));
@@ -28,6 +30,7 @@ int	ft_streq(const char *left, const char *right)
 	return (left[i] == right[i]);
 }
 
+/* La validation avant addition évite tout dépassement de int. */
 static int	convert_digits(const char *str, int *cursor, int sign, int *value)
 {
 	long	number;

@@ -13,6 +13,8 @@
 
 #include "push_swap.h"
 
+/* Le désordre est mesuré avant la normalisation et toute opération. */
+
 static void	free_stacks(t_push_swap *push_swap)
 {
 	stack_clear(&push_swap->a);
